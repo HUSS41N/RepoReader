@@ -1,7 +1,7 @@
 #main.py
 import os
 import tempfile
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 from langchain import PromptTemplate, LLMChain
 from langchain.llms import OpenAI
 from config import WHITE, GREEN, RESET_COLOR, model_name
@@ -9,14 +9,15 @@ from utils import format_user_question
 from file_processing import clone_github_repo, load_and_index_files
 from questions import ask_question, QuestionContext
 
-load_dotenv()
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+# load_dotenv()
+OPENAI_API_KEY = "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"
 
 def main():
-    github_url = input("Enter the GitHub URL of the repository: ")
+    github_url = "https://github.com/cmooredev/RepoReader"
     repo_name = github_url.split("/")[-1]
     print("Cloning the repository...")
     with tempfile.TemporaryDirectory() as local_path:
+        # print(clone_github_repo(github_url, local_path))
         if clone_github_repo(github_url, local_path):
             index, documents, file_type_counts, filenames = load_and_index_files(local_path)
             if index is None:
